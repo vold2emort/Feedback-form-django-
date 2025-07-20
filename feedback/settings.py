@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'reviews.apps.ReviewsConfig'
+    'reviews.apps.ReviewsConfig',
+    'profiles.apps.ProfilesConfig'
 ]
 
 MIDDLEWARE = [
@@ -122,3 +123,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# FOR FILE UPLOAD, setting the directory
+MEDIA_ROOT = BASE_DIR/"uploads"
