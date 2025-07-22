@@ -4,5 +4,10 @@
     <h5>By: {{ review.user_name }}</h5>
     <b>{{ review.rating }}</b>
     <p>{{ review.review_text }}</p>
+    <form action="/reviews/favourite" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="review_id" value="{{ review.id }}">
+        <button>Favourite</button>
+    </form>
 {% endblock %}
     

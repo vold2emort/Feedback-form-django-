@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, HttpResponse
 from .form import ReviewForm
 from .models import Review
 from django.views import View
@@ -6,6 +6,14 @@ from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import FormView
 
 # Create your views here.
+
+class AddFavouritView(View):
+    def post(self, request):
+        review_id = request.POST['review_id']
+        fav_review = Review.objects.get(pk=review_id)
+        # rev_txt = fav_review.review_text
+        
+
 
 class ReviewView(FormView):
     template_name = "reviews/review.html"
