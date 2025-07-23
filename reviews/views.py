@@ -10,7 +10,9 @@ from django.views.generic.edit import FormView
 class AddFavouritView(View):
     def post(self, request):
         review_id = request.POST['review_id']
-        fav_review = Review.objects.get(pk=review_id)
+        # fav_review = Review.objects.get(pk=review_id) # object not stored in session
+        request.session["favourite_review"] = review_id
+        return HttpResponseRedirect("/reviews/"+ review_id)
         # rev_txt = fav_review.review_text
         
 
@@ -70,6 +72,15 @@ class ReviewListView(ListView):
 class ReviewDetail(DetailView):
     template_name = "reviews/review_detail.html"
     model = Review
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        loaded_review = self.object
+        request = self.request
+        favourite_id = request.session["favourite_review"]
+        context["is_favourite"] = favourite_id == str(loaded_review.id)
+        print(f" {loaded_review.id}, {favourite_id}, {request.session['favourite_review']}, {context['is_favourite']}")
+        return context
 
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)
